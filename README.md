@@ -1362,3 +1362,33 @@ let lyricsRequest = GenerateLyricsRequest(
 ```swift
 .package(url: "https://github.com/loverpoolhulkbuster-afk/api-suno.git", branch: "main")
 }
+# Reemplaza YOUR_API_KEY con tu key
+curl -X POST "https://api.sunoapi.org/api/v1/suno/create" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "A peaceful acoustic guitar melody in folk style",
+    "model": "V4_5ALL"
+  }'
+// ❌ Prompts que causan error
+let badPrompts = [
+    "",                          // Vacío
+    "a",                         // Muy corto
+    "🎵🎸🎹",                    // Emojis
+    "generate a song now!!!",   // Caracteres especiales
+]
+
+// ✅ Prompts correctos
+let goodPrompts = [
+    "A calm acoustic guitar piece in folk style",
+    "Upbeat electronic dance music with synthesizers",
+    "Sad indie rock ballad with male vocals",
+]
+
+// Estructura correcta del request
+let correctPayload: [String: Any] = [
+    "prompt": "A beautiful piano melody",  // Obligatorio, min 10 chars
+    "model": "V4_5ALL",                    // Opcional, default es V4_5ALL
+    "customMode": false,                   // Opcional
+    "instrumental": false                  // Opcional
+]
